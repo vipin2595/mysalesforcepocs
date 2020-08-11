@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <defaultLandingTab>standard-home</defaultLandingTab>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <tabs>standard-Chatter</tabs>
+    <tabs>Garnish__c</tabs>
+    <tabs>junc__c</tabs>
+    <tabs>Audit_History__c</tabs>
+    <tabs>Vendor__c</tabs>
+    <tabs>Vendor_Event__c</tabs>
+</CustomApplication>

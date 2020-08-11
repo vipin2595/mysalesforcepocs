@@ -1,0 +1,26 @@
+<apex:page controller="Addtwonumbers">
+  <!-- Begin Default Content REMOVE THIS -->
+  <h1>Congratulations</h1>
+  This is your new Page: addtwonumbers
+  <apex:form >
+      <apex:commandButton value="Add" action="{!ADD}" reRender="pb"/>
+      <apex:commandButton value="Refresh" action="{!reset}" reRender="pb"/>
+      <apex:pageBlock title="Add Two Numbers" id="pb">
+          <apex:pageBlockSection columns="1">
+              <apex:pageBlockSectionItem >
+                  <apex:outputLabel > Aval</apex:outputLabel>
+                  <apex:inputText value="{!Aval}"/>
+              </apex:pageBlockSectionItem>
+              <apex:pageBlockSectionItem >
+                  <apex:outputLabel > Bval</apex:outputLabel>
+                  <apex:inputText value="{!Bval}"/>
+              </apex:pageBlockSectionItem>
+              <apex:pageBlockSectionItem >
+                  <apex:outputLabel > Cval</apex:outputLabel>
+                  <apex:inputText value="{!Cval}"/>
+              </apex:pageBlockSectionItem>
+          </apex:pageBlockSection>
+      </apex:pageBlock>
+  </apex:form>
+  <!-- End Default Content REMOVE THIS -->
+</apex:page>

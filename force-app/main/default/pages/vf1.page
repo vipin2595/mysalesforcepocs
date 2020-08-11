@@ -1,0 +1,11 @@
+<apex:page controller="StudentExample">
+<!-- Begin Default Content REMOVE THIS -->
+<h1>Congratulations</h1><br/>
+    <apex:form >
+        <apex:commandButton value="call" action="{!callme}"/><br/>
+            Name:{!name}<br/>
+            Quantity:{!Quantity}
+    </apex:form>
+
+<!-- End Default Content REMOVE THIS -->
+</apex:page>

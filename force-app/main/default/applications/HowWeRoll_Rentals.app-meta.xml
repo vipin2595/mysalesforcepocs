@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <defaultLandingTab>standard-home</defaultLandingTab>
+    <label>HowWeRoll Rentals</label>
+    <tab>standard-Contact</tab>
+    <tab>BoatType__c</tab>
+    <tab>Boat__c</tab>
+    <tab>Friends_with_Boats</tab>
+    <tab>Property__c</tab>
+    <tab>Apttus_Selling_Term</tab>
+</CustomApplication>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Merchandise_Compact_Layout</fullName>
+    <fields>Name</fields>
+    <fields>OwnerId</fields>
+    <fields>Price__c</fields>
+    <fields>Quantity__c</fields>
+    <label>Merchandise Compact Layout</label>
+</CompactLayout>

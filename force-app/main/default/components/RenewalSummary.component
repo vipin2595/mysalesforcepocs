@@ -1,0 +1,300 @@
+<apex:component controller="RenewalSummaryCmpController" access="global">
+    <apex:attribute name="proposalId" type="Id" description="Id of the proposal" assignTo="{!propId}"/>
+    <apex:outputPanel >
+        <table style="width:100%">
+          <tr bgcolor="#ADD8E6">
+                    <th class="column-22">RENEWAL SUMMARY</th>
+                    <th class="column-11">AMOUNT</th>
+                    <th class="column-11">%</th>
+                    <th class="column-11">PEPY</th>
+                </tr>   
+            <apex:repeat value="{!proposalpayLd}" var="ot">
+                    <!--Display only when Type= Renewal  -->
+                <tr>
+                    <th class="column-22" style="border-top:2px solid #000000;">Baseline - ACV</th>
+                    
+                    <td class="column-11" style="border-top:2px solid #000000;"><apex:outputText value="{!ot.proposal.CurrencyIsoCode} {0, number, ###,###,###,##0}" rendered="true">
+                        <apex:param value="{!ot.proposal.Contractual_Baseline__c}"  />
+                    </apex:outputText> <br/></td>
+                    <td class="column-11" style="border-top:2px solid #000000;"></td>
+                    <td class="column-11" style="border-top:2px solid #000000;"><apex:outputText value="{!ot.proposal.CurrencyIsoCode} {0, number, ###,###,###,##0.00}" rendered="true">
+                        <apex:param value="{!ot.PliPayLoad.baselineAcvPepy}"/>
+                        </apex:outputText><br/></td>
+                </tr>
+                <!--Display only when Type= Renewal  -->  
+                <tr>
+                    <th class="column-22">Baseline - FSE Reduction </th>
+                    
+                    <td class="column-11"><apex:outputText value="{!ot.proposal.CurrencyIsoCode} {0, number, ###,###,###,##0}" rendered="true">
+                                        <apex:param value="{!ot.proposal.APTS_R_Baseline_Reduction_FSE__c}"  />
+                    </apex:outputText> <br/></td>
+                    <td class="column-11"><apex:outputText value="{0,number, ###,###,###,##0.0} %" rendered="true">
+                        <apex:param value="{!ot.PliPayLoad.baselineFseReduction}"/> </apex:outputText> <br/> </td>
+                    <td class="column-11"> </td>
+                </tr> 
+                <!--  
+                <tr>
+                    <th class="column-22"> Baseline - Other Reduction </th>
+                    
+                    
+                    <td class="column-11"><apex:outputText value="{!ot.proposal.CurrencyIsoCode} {0, number, ###,###,###,##0.00}" rendered="true">
+                                        <apex:param value="{!ot.proposal.APTS_R_Baseline_Other_Adjustment__c}"  />
+                    </apex:outputText> <br/></td>
+                    <td class="column-11"> </td>
+                    <td class="column-11"> </td>
+                </tr> -->
+                
+                <!-- GTMOM-2469 Parvathi Start here -->
+                <tr>
+                    <th class="column-22"> Baseline - FSE Expansion </th>
+                    <td class="column-11"><apex:outputText value="{!ot.proposal.CurrencyIsoCode} {0, number, ###,###,###,##0}" rendered="true">
+                    <apex:param value="{!ot.proposal.APTS_Expansion_Baseline_ACV__c}"  />
+                    </apex:outputText> <br/></td>
+                    <td class="column-11"><apex:outputText value="{0,number, ###,###,###,##0.0} %" rendered="true">
+                        <apex:param value="{!ot.PliPayLoad.baseLineFseExpanstion}"/> 
+                        </apex:outputText> <br/> </td>
+                    <td class="column-11"> </td>
+                </tr>
+                <tr>
+                    <th class="column-22"> Baseline - FSE Volume Adjustment </th>
+                    <td class="column-11"><apex:outputText value="{!ot.proposal.CurrencyIsoCode} {0, number, ###,###,###,##0}" rendered="true">
+                    <apex:param value="{!ot.proposal.APTS_Volume_Discount_ACV__c}"  />
+                    </apex:outputText> <br/></td>
+                    <td class="column-11"> </td>
+                    <td class="column-11"> </td>
+                </tr> 
+                <tr>
+                    <th class="column-22"> Baseline - After all FSE Adjustments </th>
+                    <td class="column-11"><apex:outputText value="{!ot.proposal.CurrencyIsoCode} {0, number, ###,###,###,##0}" rendered="true">
+                    <apex:param value="{!ot.PliPayLoad.baselineFseAdjusted}"  />
+                    </apex:outputText> <br/></td>
+                    <td class="column-11"> </td>
+                    <td class="column-11"> </td>
+                </tr> 
+                
+                <tr>
+                    <th class="column-22">Baseline - SKU Reduction </th>
+                    
+                    <td class="column-11"><apex:outputText value="{!ot.proposal.CurrencyIsoCode} {0, number, ###,###,###,##0}" rendered="true">
+                    <apex:param value="{!ot.proposal.APTS_R_Baseline_Reduction_SKU__c}"  />
+                    </apex:outputText> <br/></td>
+                    <td class="column-11"> </td>
+                    <td class="column-11"> </td>
+                    
+                    </tr>
+                <tr>
+                    <th class="column-22" style="border-top:2px solid #000000; border-bottom: 2px solid #000000;">Baseline - ACV Before Uplift </th>
+                    <td class="column-11" style="border-top:2px solid #000000; border-bottom: 2px solid #000000;"><apex:outputText value="{!ot.proposal.CurrencyIsoCode} {0, number, ###,###,###,##0}" rendered="true">
+                    <apex:param value="{!ot.proposal.APTS_Adjusted_Baseline_ACV__c}"  />
+                    </apex:outputText> <br/></td>
+                    <td class="column-11" style="border-top:2px solid #000000; border-bottom:2px solid #000000;"><apex:outputText value="{0,number, ###,###,###,##0.0} %" rendered="true">
+                        <apex:param value="{!ot.PliPayLoad.baselineAcvBeforeUplift}"/> 
+                        </apex:outputText> <br/></td>
+                    <td class="column-11" style="border-top:2px solid #000000; border-bottom:2px solid #000000;"><apex:outputText value="{!ot.proposal.CurrencyIsoCode} {0, number, ###,###,###,##0.00}" rendered="true">
+                    <apex:param value="{!ot.proposal.APTS_Growth_Adjusted_PEPY__c}"/>
+                    </apex:outputText> <br/></td>
+                </tr> 
+                <!-- GTMOM-2469 Parvathi End here --> 
+
+                <tr>
+                    <th class="column-22"><br/></th>
+                    <td class="column-11"><br/></td>
+                    <td class="column-11"><br/></td>
+                    <td class="column-11"><br/></td>
+                </tr> 
+                <!-- <tr class="row-1">
+                    <th class="column-22">Pre-Negotiated Term </th>
+                    <td class="column-11"><apex:outputText value="{!ot.proposal.APTS_Pre_Negotiated_Term__c}" rendered="true"/><br/></td>
+                    <td class="column-11"> </td>
+                    <td class="column-11"> </td>
+                </tr>-->
+                <tr>
+                    <th class="column-22">Renewal Negotiation Type </th>
+                    <td class="column-11"><apex:outputText value="{!ot.proposal.Renewal_Negotiation_Type__c}" /> </td>
+                    <td class="column-11"> </td>
+                    <td class="column-11"> </td>
+                    </tr>
+                <tr>
+                    <th class="column-22">Target Uplift </th>
+                    <td class="column-11"><apex:outputText value="{!ot.proposal.CurrencyIsoCode} {0, number, ###,###,###,##0}" rendered="true">
+                        <apex:param value="{!ot.proposal.APTS_Uplift_Renewal_Target_ACV__c}" /> 
+                        </apex:outputText><br/></td>
+                    <td class="column-11"> </td>
+                    <td class="column-11"> </td>
+                </tr> 
+                <!--<tr>
+                    <th class="column-22">Target Uplift % - CPI </th>
+                    <td class="column-11"><apex:outputText value="{!ot.proposal.CPI_For_Renewal_Uplift__c} %" rendered="true"/> <br/></td>
+                    <td class="column-11"> </td>
+                    <td class="column-11"> </td>
+                </tr> 
+                    
+                <tr>
+                    <th class="column-22">Target Uplift $ - CPI </th>
+                    <td class="column-11"><apex:outputText value="{!ot.proposal.CurrencyIsoCode} {0, number, ###,###,###,##0.00}" rendered="true">
+                    <apex:param value="{!ot.proposal.APTS_R_Net_Baseline_CPI__c}"  />
+                    </apex:outputText> <br/></td>
+                    <td class="column-11"> </td>
+                    <td class="column-11"> </td>
+                </tr>                                         
+                    <tr class="row-1">
+                    <th class="column-22">Target Uplift - Innovation Index %</th>
+                    <td class="column-11"><apex:outputText value="{!ot.proposal.APTS_Target_Innovation_Index__c} %" rendered="true"/>
+                                        <br/></td>
+                    <td class="column-11"> </td>
+                    <td class="column-11"> </td>
+                </tr>                      
+                <tr class="row-1">
+                    <th class="column-22">Target Uplift - Innovation Index $</th>
+                    <td class="column-11"><apex:outputText value="{!ot.proposal.CurrencyIsoCode} {0, number, ###,###,###,##0.00}" rendered="true">
+                    <apex:param value="{!ot.proposal.APTS_R_Net_Baseline_II__c}"  />
+                    </apex:outputText> <br/></td>
+                    <td class="column-11"> </td>
+                    <td class="column-11"> </td>
+                </tr> -->
+        
+                <tr class="row-1">
+                    <th class="column-22" style="border-top:2px solid #000000; border-bottom: 2px solid #000000;">Target Renewal ACV &amp; Uplift </th>
+                    <td class="column-11" style="border-top:2px solid #000000; border-bottom: 2px solid #000000;"><apex:outputText value="{!ot.proposal.CurrencyIsoCode} {0, number, ###,###,###,##0}" rendered="true">
+                    <apex:param value="{!ot.proposal.ATPS_Renewal_Subscription_Target_ACV__c}" />
+                    </apex:outputText> <br/></td>
+                    <td class="column-11" style="border-top:2px solid #000000; border-bottom: 2px solid #000000;"><apex:outputText value="{0,number, ###,###,###,##0.0} %" rendered="true">
+                    <apex:param value="{!ot.PliPayLoad.targetRenewalAcvUplift}"/>
+                    </apex:outputText><br/></td>
+                    <td class="column-11" style="border-top:2px solid #000000;  border-bottom: 2px solid #000000;"><apex:outputText value="{!ot.proposal.CurrencyIsoCode} {0, number, ###,###,###,##0.00}" rendered="true">
+                    <apex:param value="{!ot.proposal.APTS_Target_Uplifted_PEPY__c}"/>
+                    </apex:outputText> <br/></td>
+
+                </tr> 
+                    <tr>
+                    <th class="column-22"><br/></th>
+                    <td class="column-11"><br/></td>
+                    <td class="column-11"><br/></td>
+                    <td class="column-11"><br/></td>
+                </tr> 
+                <tr class="row-1">
+                    <th class="column-22">Discount from Target </th>
+                    <td class="column-11"><apex:outputText value="{!ot.proposal.CurrencyIsoCode} {0, number, ###,###,###,##0}" rendered="true">
+                                        <apex:param value="{!ot.proposal.APTS_Discretionary_Discount_ACV__c}"  />
+                                    </apex:outputText> <br/></td>
+                    <td class="column-11"><apex:outputText value="{0,number, ###,###,###,##0.0} %" rendered="true">
+                        <apex:param value="{!ot.proposal.APTS_Renewal_Subscription_Discount__c}"/> </apex:outputText></td>
+                    <td class="column-11"> </td>
+                </tr>  
+                <!--  <tr>
+                    <th class="column-22">Innovation Index - Pre Neg </th>
+                    <td class="column-11">
+                    <apex:outputText value="{!ot.proposal.APTS_Root_PN_II_Rate__c} %" rendered="true"/>
+                    <br/>
+                    </td>
+                    <td class="column-11"> </td>
+                    <td class="column-11"> </td>
+                </tr>-->
+                <tr>
+                    <th class="column-22">Realized Uplift </th>
+                    <td class="column-11">
+                        <apex:outputText value="{!ot.proposal.CurrencyIsoCode} {0, number, ###,###,###,##0}" rendered="true">
+                            <apex:param value="{!ot.proposal.Uplift_Renewal_Subscription_ACV__c}" />
+                        </apex:outputText><br/>
+                    </td>
+                    <td class="column-11"> </td>
+                    <td class="column-11"> </td>
+                </tr>
+                
+                <!-- <tr>
+                    <th class="column-22">Innovation Index - Target </th>
+                    <td class="column-11"><apex:outputText value="{0,number, ##} %" rendered="true">
+                    <apex:param value="{!ot.proposal.APTS_II_Rate__c}"  />
+                    </apex:outputText> <br/></td>
+                    <td class="column-11"> </td>
+                    <td class="column-11"> </td>
+                </tr> 
+                
+                <tr>
+                    <th class="column-22">Innovation Index - Actual </th>
+                    <td class="column-11"><apex:outputText value="{0,number, ##} %" rendered="true">
+                    <apex:param value="{!ot.proposal.APTS_Net_Innovation_Index__c}"  />
+                    </apex:outputText> <br/></td>
+                    <td class="column-11"> </td>
+                    <td class="column-11"> </td>
+                </tr> 
+                
+                <tr>
+                    <th class="column-22">Innovation Index - Delta </th>
+                    <td class="column-11"><apex:outputText value="{0,number, ##} %" rendered="true">
+                    <apex:param value="{!ot.proposal.APTS_Delta_Innovation_Index__c}"  />
+                    </apex:outputText> <br/></td>
+                    <td class="column-11"> </td>
+                    <td class="column-11"> </td>
+                </tr> -->
+                <tr class="row-1">
+                    <th class="column-22" style="border-top:2px solid #000000; border-bottom: 2px solid #000000;">Realized Renewal ACV &amp; Uplift </th>
+                    <td class="column-11" style="border-top:2px solid #000000; border-bottom: 2px solid #000000;"><apex:outputText value="{!ot.proposal.CurrencyIsoCode} {0, number, ###,###,###,##0}" rendered="true">
+                                        <apex:param value="{!ot.proposal.APTS_Renewal_Subscription_ACV__c}"  />
+                                    </apex:outputText> <br/></td>
+                    <td class="column-11"  style="border-top:2px solid #000000; border-bottom: 2px solid #000000;"><apex:outputText value="{0,number, ###,###,###,##0.0} %" rendered="true">
+                        <apex:param value="{!ot.PliPayLoad.realizedRenewalAcvUplift}"/>
+                        </apex:outputText> <br/></td>
+                    <td class="column-11"  style="border-top:2px solid #000000; border-bottom: 2px solid #000000;"><apex:outputText value="{!ot.proposal.CurrencyIsoCode} {0, number, ###,###,###,##0.00}" rendered="true">
+                        <apex:param value="{!ot.PliPayLoad.realizedRenewalAcvUpliftPepy}"/>
+                        </apex:outputText><br/></td>
+                </tr> 
+                
+                <tr>
+                    <th class="column-22">Renewal Rate </th>
+                    <td class="column-11"></td>
+                    <td class="column-11"><apex:outputText value="{0,number, ###,###,###,##0.0} %" rendered="true">
+                    <apex:param value="{!ot.proposal.Total_Renewal_Rate_new__c}"/>
+                    </apex:outputText><br/></td>
+                    <td class="column-11"></td>
+                </tr>
+                <!-- GTMOM-2469 Parvathi End here -->
+    
+                <tr>
+                    <th class="column-22"><br/></th>
+                    <td class="column-11"><br/></td>
+                    <td class="column-11"><br/></td>
+                    <td class="column-11"><br/></td>
+                </tr> 
+
+                <tr class="row-1">
+                    <th class="column-22">Add-On - Discount % </th>
+                    <td class="column-11">
+                        <apex:outputText value="{0,number, ###,###,###,##0.0} %" rendered="{!IF((ot.proposal.APTS_New_Subscription_Discount__c > 0), true, false)}">
+                            <apex:param value="{!ot.proposal.APTS_New_Subscription_Discount__c}"/>
+                        </apex:outputText><br/></td>
+                    <td class="column-11"></td>
+                    <td class="column-11"></td>
+                </tr>
+                
+                <tr>
+                    <th class="column-22" style="border-top:2px solid #000000; border-bottom: 2px solid #000000;">Add-On - Net ACV </th>
+                    <td class="column-11" style="border-top:2px solid #000000; border-bottom: 2px solid #000000;">
+                        <apex:outputText value="{!ot.proposal.CurrencyIsoCode} {0, number, ###,###,###,##0}" rendered="{IF((!ot.proposal.APTS_Add_On_New_Subscription_ACV__c > 0), true, false)}">
+                            <apex:param value="{!ot.proposal.APTS_Add_On_New_Subscription_ACV__c}"  />
+                        </apex:outputText> <br/></td>
+                    <td class="column-11" style="border-top:2px solid #000000; border-bottom: 2px solid #000000;"></td>
+                    <td class="column-11" style="border-top:2px solid #000000; border-bottom: 2px solid #000000;">
+                        <apex:outputText value="{!ot.proposal.CurrencyIsoCode} {0, number, ###,###,###,##0.00}" rendered="true">
+                            <apex:param value="{!ot.PliPayLoad.addOnNetAcvPepy}"  />
+                        </apex:outputText> <br/></td>
+                </tr> 
+            
+                <tr>
+                    <th class="column-22"><br/></th>
+                    <td class="column-11"><br/></td>
+                    <td class="column-11"><br/></td>
+                    <td class="column-11"><br/></td>
+                </tr> 
+                <!--<tr>
+                    <th class="column-22">Renewal Rate – Baseline Only </th>
+                    <td class="column-11"><apex:outputText value="{0,number, ##} %" rendered="true">
+                    <apex:param value="{!ot.proposal.Baseline_Renewal_Rate__c}"/>
+                    </apex:outputText><br/></td>
+                    <td class="column-11"></td>
+                    <td class="column-11"></td>
+                </tr>-->
+            </apex:repeat>
+        </table>    
+    </apex:outputPanel> 
+</apex:component>

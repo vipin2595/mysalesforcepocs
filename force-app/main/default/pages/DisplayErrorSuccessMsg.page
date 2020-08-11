@@ -1,0 +1,15 @@
+<apex:page controller="DisplayErrorSuccessMsgController">
+    <apex:messages />
+    <apex:form>
+        <apex:pageblock title="Kotesh">
+            Enter Experience <apex:inputText value="{!exp}"/>
+                <apex:pageblocksection>
+                Salary	<apex:outputText value="{!sal}"></apex:outputText>
+                </apex:pageblocksection>
+                <apex:pageblocksection>
+                    Bonus	<apex:outputText value="{!bonus}"></apex:outputText>
+                </apex:pageblocksection>
+            <apex:commandbutton value="calculate" action="{!calculate}"></apex:commandbutton>
+        </apex:pageblock>
+    </apex:form>
+</apex:page>

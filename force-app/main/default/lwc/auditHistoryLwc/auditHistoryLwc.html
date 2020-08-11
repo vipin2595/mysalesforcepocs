@@ -1,0 +1,36 @@
+<template>
+    <lightning-card title="Audit History" icon-name="action:log_event">
+        <div if:true={showLoadingSpinner}>
+            <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
+        </div>
+        <template if:true={errors.length}>
+            <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" style="display:block;" role="alert">
+                <span class="slds-assistive-text"></span>
+                <template for:each={errors} for:item="error">
+                    <!-- <div key={error.key}>
+                        {error.body.message}
+                        <br />
+                    </div> -->
+                </template>
+            </div>
+        </template>
+        <template if:false={errors.length}>
+            <lightning-accordion>
+            <template for:each={rowsByFieldName} for:item="rows">
+                <lightning-accordion-section name={rows.key} label={rows.key} key={rows.key}>
+                    <lightning-datatable
+                        key-field="FieldName"
+                        data={rows.value}
+                        columns={columns}
+                        hide-checkbox-column="true">
+                    </lightning-datatable>
+                </lightning-accordion-section>
+            </template>
+        </lightning-accordion>
+            <!-- <c-paginator
+                original-data={data}
+                columns={columns}>
+            </c-paginator> -->
+        </template>
+    </lightning-card>
+</template>

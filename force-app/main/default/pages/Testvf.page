@@ -1,0 +1,116 @@
+<apex:page controller="accountSearcher" docType="html-5.0">
+    <apex:form >
+        <apex:pageBlock title="Calulate Selling Term Apttus" id="pb">
+            <div align="center" draggable="false" >
+                <apex:commandButton value=" Calculate " action="{!searchAccount}" reRender="pb"/>
+                &nbsp;
+                <apex:commandButton value=" Reset " action="{!reset}" reRender="pb"/>
+            </div>
+            <apex:pageBlockSection columns="1">
+                <apex:pageBlockSectionItem >
+                    Start Date: <apex:input type="date" value="{!startDate}" required="true" /> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    End Date: <apex:input type="date" value="{!endDate}" required="true" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel > Frequency</apex:outputLabel>
+                    <apex:selectList value="{!Frequency}" multiselect="false" size="1">
+                        <apex:selectOption itemValue="Yearly" itemLabel="Yearly"/>
+                        <apex:selectOption itemValue="Half Yearly" itemLabel="Half Yearly"/>
+                        <apex:selectOption itemValue="Quarterly" itemLabel="Quarterly"/>
+                        <apex:selectOption itemValue="Monthly" itemLabel="Monthly"/>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel > SellingTerm</apex:outputLabel>
+                    <apex:outputText value="{!SellingTerm1}"/>
+                </apex:pageBlockSectionItem>
+                <head>
+                    <br> <h3  style="font-size:150%;" > Apttus Formula Breakdown </h3>  </br>
+            </head>
+            <br/>
+            <h1 style="color:Tomato;">
+                Start Days In Month Formula : (Start Date)Returns the number of days in the month for the specified year and month Eg:(1=Jan)-->31 days.
+            </h1>
+            <apex:pageBlockSectionItem helpText="(Start Date)Returns the number of days in the month for the specified year and month Eg:(1=Jan)-->31 days.">
+                <apex:outputLabel > Start Days In Month</apex:outputLabel>
+                <apex:outputText value="{!startDaysInMonth1}"/>
+            </apex:pageBlockSectionItem> 
+            <h1 style="color:Tomato;">
+                End Days In Month Formula : (End Date)Returns the number of days in the month for the specified year and month Eg:(2=feb)-->28 days.
+            </h1>
+            <apex:pageBlockSectionItem helpText="(End Date)Returns the number of days in the month for the specified year and month Eg:(2=feb)-->28 days." >
+                <apex:outputLabel > End Days In Month</apex:outputLabel>
+                <apex:outputText value="{!endDaysInMonth1}"/>
+            </apex:pageBlockSectionItem> 
+            <h1 style="color:Tomato;">
+                Start Day  : Returns the day-of-month component of a Date.  eg 01/22/2019 start day--> 22"
+            </h1>
+            <apex:pageBlockSectionItem helpText="Returns the day-of-month component of a Date. eg 01/22/2019 start day--> 22" >
+                <apex:outputLabel > Start Day</apex:outputLabel>
+                <apex:outputText value="{!startDay1}"/>
+            </apex:pageBlockSectionItem> 
+            <h1 style="color:Tomato;">
+                End Day: Returns the day-of-month component of a Date. eg 01/23/2022 end day--> 23
+            </h1>
+            <apex:pageBlockSectionItem helpText="Returns the day-of-month component of a Date. eg 01/23/2022 end day--> 23" >
+                <apex:outputLabel > End Day</apex:outputLabel>
+                <apex:outputText value="{!endDay1}"/>
+            </apex:pageBlockSectionItem> 
+            <h1 style="color:Tomato;">
+                Selling Months Formula : StartDate.monthsBetween(EndDate)-1
+            </h1>
+            <apex:pageBlockSectionItem helpText="Returns the number of months between the Start Date and End Date, ignoring the difference in days" >
+                <apex:outputLabel > Selling Months</apex:outputLabel>
+                <apex:outputText value="{!SellingMonths1}"/>
+            </apex:pageBlockSectionItem> 
+            <h1 style="color:Tomato;">
+                Selling Prorated Start Formula : ((Start Days In Month - startDay + 1.00 ) * 1.00) / (1.00 * Start Days In Month)
+            </h1>
+            <apex:pageBlockSectionItem helpText=" ((Start Days In Month - startDay + 1.00 ) * 1.00) / (1.00 * Start Days In Month)" >
+                <apex:outputLabel > Selling Prorated Start</apex:outputLabel>
+                <apex:outputText value="{!sellingProratedStart1}"/>
+            </apex:pageBlockSectionItem> 
+            <h1 style="color:Tomato;">
+                Selling Prorated End Formula : (endDay * 1.00 ) / (1.00 * End Days In Month);
+            </h1>
+            <apex:pageBlockSectionItem helpText="(endDay*1.00)/(1.00*End Days In Month)" >
+                <apex:outputLabel > Selling Prorated End</apex:outputLabel>
+                <apex:outputText value="{!sellingProratedEnd1}"/>
+            </apex:pageBlockSectionItem>
+             <h1 style="color:Tomato;">
+                Selling Prorated StartEnd Formula : Selling Prorated Start + Selling Prorated End ;
+            </h1>
+            <apex:pageBlockSectionItem helpText="(endDay*1.00)/(1.00*End Days In Month)" >
+                <apex:outputLabel >  Selling Prorated StartEnd</apex:outputLabel>
+                <apex:outputText value="{!a}"/>
+            </apex:pageBlockSectionItem>  
+            <h1 style="color:Tomato;">
+                Calculated Selling Term Month Formula : Selling Prorated StartEnd + selling Months ;
+            </h1>
+            <apex:pageBlockSectionItem helpText="Selling Prorated StartEnd + selling Months" >
+                <apex:outputLabel > Calculated Selling Term Month</apex:outputLabel>
+                <apex:outputText value="{!CalculatedSellingTermMonth1}"/>
+            </apex:pageBlockSectionItem> 
+           
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+    <apex:pageBlock title=" Frequency" >
+        <apex:pageBlockSection columns="1">
+            <p style="color:DodgerBlue;">
+                (Selling Term) Yearly = Calculated Selling Term Month / 12 ;
+            </p>
+            <p style="color:DodgerBlue;">
+               (Selling Term) Half Yeatly = Calculated Selling Term Month / 6 ;
+            </p>
+            <p style="color:DodgerBlue;">
+               (Selling Term) Quaterly = Calculated Selling Term Month / 4 ;
+            </p>
+            <p style="color:DodgerBlue;" >
+               (Selling Term) Monthly = Calculated Selling Term Month ; 
+            </p>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:form>
+</apex:page>
